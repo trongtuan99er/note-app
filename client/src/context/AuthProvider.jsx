@@ -11,7 +11,7 @@ const AuthProvider = ({children}) => {
     const unsubcribed = auth.onIdTokenChanged((user) => {
       console.log("user", {user});
       if (user?.uid){
-        setUser(user);0
+        setUser(user);
         localStorage.setItem("accessToken", user.accessToken);
         return;
       }
