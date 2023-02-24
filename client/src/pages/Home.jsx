@@ -1,7 +1,9 @@
 import React from 'react'
-import Typography from '@mui/material/Typography'
+import {Typography, Grid} from '@mui/material'
 import { Box } from '@mui/system'
 import UserMenu from '../components/UserMenu'
+import FolderList from '../components/FolderList'
+import { Outlet } from 'react-router-dom'
 
 const Home = () => {
   return (
@@ -10,6 +12,15 @@ const Home = () => {
       <Box sx={{display: 'flex', justifyContent: 'right', mb: '15px'}}>
         <UserMenu />
       </Box>
+
+      <Grid container sx={{height: '70vh', boxShadow: "0 0 15px 0 rgba(193 193 193 / 60%)"}}>
+        <Grid item xs={3} sx={{height: '100%'}}>
+          <FolderList folders={[{id: "1", name: "hello"},{id: "2", name: "helldsado"}]}/>
+        </Grid>
+        <Grid item xs={9} sx={{height: '100%'}}>
+          <Outlet />
+        </Grid>
+      </Grid>
     </>
   )
 }
