@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 import { Grid, List, Card, CardContent, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import { Link, Outlet, useParams } from 'react-router-dom'
+import { Link, Outlet, useParams, useLoaderData } from 'react-router-dom'
 
 const NoteList = () => {
-  const noteList = {notes: [{id: '1', content: "notesadas"},{id: '2', content: "notesadas"}]}
   const { noteId } = useParams()
+  const { folder } = useLoaderData()
+
   const [activeNoteId, setActiveNoteId] = useState(noteId)
   return (
     <Grid container height="100%">
@@ -29,7 +30,7 @@ const NoteList = () => {
           }
         >
         {
-          noteList.notes.map(({id, content})=> {
+          folder.notes.map(({id, content})=> {
             return <Link
               key={id}
               to={`note/${id}`}

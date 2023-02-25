@@ -6,7 +6,6 @@ import { Box } from '@mui/system'
 const FolderList = ({folders}) => {
   const { folderId } = useParams()
   const [activeFolderId, setActiveFolderId] = useState(folderId)
-  console.log(typeof(activeFolderId));
   return (
     <List
       sx={{

@@ -30,18 +30,30 @@ const typeDefs = `#graphql
 
   type Query {
     folders: [Folder]
+    folder(folderId: String): Folder
+    note(noteId: String): Note
   }
   `;
 const resolvers = {
   Query: {
-    folders: () => { return fakeData.folders}
+    folders: () => { return fakeData.folders},
+    folder: ((parent, agrs) => {
+      const folderId = agrs.folderId
+      return fakeData.folders.find((folder) => folder.id === folderId)
+    }),
+    note: (parent, agrs) => {
+      const noteId = agrs.noteId
+      return fakeData.notes.find((note) => note.id === noteId)
+    }
   },
   Folder: {
     author: (parent, agrs) => {
       const authorId = parent.authorId
       return fakeData.auhors.find(author => author.id === authorId)
     },
-    notes: () => {return fakeData.notes}
+    notes: (parent, agrs) => {
+      return fakeData.notes.filter(note => note.folderId === parent.id)
+    }
   },
 };
 
