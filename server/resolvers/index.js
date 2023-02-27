@@ -30,8 +30,11 @@ export const resolvers = {
       })
       return author
     },
-    notes: (parent, agrs) => {
-      return fakeData.notes.filter(note => note.folderId === parent.id)
+    notes: async (parent, agrs) => {
+      const notes = await NoteModel.find({
+        folderId: parent.id
+      })
+      return notes
     }
   },
   Mutation: {

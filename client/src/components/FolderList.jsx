@@ -20,7 +20,7 @@ const FolderList = ({folders}) => {
       subheader={
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Typography sx={{ fontWeight: 'bold', color: 'white' }}>
-            Folders
+            DS Thư Mục
           </Typography>
           <NewFolder />
         </Box>

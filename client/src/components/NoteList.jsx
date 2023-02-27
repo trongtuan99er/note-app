@@ -1,13 +1,23 @@
 import React, {useState} from 'react'
-import { Grid, List, Card, CardContent, Typography } from '@mui/material'
+import { Grid, List, Card, CardContent, Typography, IconButton, Tooltip,  } from '@mui/material'
 import { Box } from '@mui/system'
-import { Link, Outlet, useParams, useLoaderData } from 'react-router-dom'
-
+import { Link, Outlet, useParams, useLoaderData, useSubmit } from 'react-router-dom'
+import { NoteAddOutlined } from '@mui/icons-material'
 const NoteList = () => {
-  const { noteId } = useParams()
+  const { noteId, folderId } = useParams()
   const { folder } = useLoaderData()
-
+  const submit = useSubmit()
   const [activeNoteId, setActiveNoteId] = useState(noteId)
+
+  const handleAddNewNote = async () => {
+    submit({
+      content: '',
+      folderId: folderId
+    }, { 
+      method: 'post',
+      action: `/folder/${folderId}`
+    })
+  }
   return (
     <Grid container height="100%">
       <Grid  item xs={4}>
@@ -22,10 +32,15 @@ const NoteList = () => {
             maxWidth: 360
           }}
           subheader={
-            <Box>
+            <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
               <Typography variant="h6" color="initial" sx={{fontWeight: 'bold', color: 'white', mb: '4px'}}>
                 DS Ghi Chú
               </Typography>
+              <Tooltip title="Thêm ghi chú" onClick={handleAddNewNote}>
+                <IconButton size="small" >
+                  <NoteAddOutlined sx={{color: 'white'}}/>
+                </IconButton>
+              </Tooltip>
             </Box>
           }
         >
@@ -44,7 +59,7 @@ const NoteList = () => {
                 }}>
                   <div 
                     style={{fontSize: 14, fontWeight: 'bold'}}
-                    dangerouslySetInnerHTML={{__html: `${content.substring(0,30) || 'Empty'}`}}
+                    dangerouslySetInnerHTML={{__html: `${content.substring(0,30) || 'Nội dung trống'}`}}
                   />
                 </CardContent>
               </Card>
