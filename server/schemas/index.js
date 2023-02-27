@@ -25,6 +25,7 @@ type Query {
 type Mutation {
   addFolder(name: String!): Folder,
   addNote(content: String!, folderId: ID!): Note,
+  updateNote(id: String!, content: String!): Note,
   register(uid: String!, name: String!): Author,
 }
 `;
