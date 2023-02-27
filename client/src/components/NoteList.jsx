@@ -32,8 +32,8 @@ const NoteList = () => {
   }, [noteId, folder.notes])
   
   return (
-    <Grid container height="100%">
-      <Grid  item xs={4}>
+    <Grid container sx={{height: '100%'}}>
+      <Grid  item xs={4} sx={{height: '100%', overflow: 'auto'}}>
         <List
           sx={{
             width: '100%',
@@ -81,7 +81,10 @@ const NoteList = () => {
         }
         </List>
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={8} sx={{px: "8px"}}>
+        <Typography variant="h6" color="initial" sx={{fontWeight: 'bold', color: 'black', mb: '4px'}}>
+          Chi tiết ghi chú
+        </Typography>
         <Outlet />
       </Grid>
     </Grid>
