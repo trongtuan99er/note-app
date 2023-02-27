@@ -33,12 +33,12 @@ const NoteList = () => {
           }}
           subheader={
             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-              <Typography variant="h6" color="initial" sx={{fontWeight: 'bold', color: 'white', mb: '4px'}}>
+              <Typography variant="h6" color="initial" sx={{fontWeight: 'bold', color: 'black', mb: '4px'}}>
                 DS Ghi Chú
               </Typography>
               <Tooltip title="Thêm ghi chú" onClick={handleAddNewNote}>
                 <IconButton size="small" >
-                  <NoteAddOutlined sx={{color: 'white'}}/>
+                  <NoteAddOutlined sx={{color: 'black'}}/>
                 </IconButton>
               </Tooltip>
             </Box>

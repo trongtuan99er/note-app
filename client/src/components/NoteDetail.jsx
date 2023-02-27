@@ -37,7 +37,7 @@ const NoteDetail = () => {
     <Editor 
       editorState={editorState}
       onEditorStateChange={handleChange}
-      placeHolder="Hãy viết ghi chú của bạn!"
+      placeholder="Viết gì đó!"
     />
   )
 }
