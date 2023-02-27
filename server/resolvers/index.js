@@ -12,14 +12,14 @@ export const resolvers = {
     },
     folder: async (parent, agrs) => {
       const folderId = agrs.folderId
-      const findFolder = await FolderModel.findOne({
-        _id: folderId
-      })
+      const findFolder = await FolderModel.findById(folderId)
       return findFolder
     },
-    note: (parent, agrs) => {
+    note: async (parent, agrs) => {
       const noteId = agrs.noteId
-      return fakeData.notes.find((note) => note.id === noteId)
+      const findNote = await NoteModel.findById(noteId)
+      return findNote
+      // return fakeData.notes.find((note) => note.id === noteId)
     }
   },
   Folder: {
@@ -33,6 +33,8 @@ export const resolvers = {
     notes: async (parent, agrs) => {
       const notes = await NoteModel.find({
         folderId: parent.id
+      }).sort({
+        updatedAt: 'desc'
       })
       return notes
     }

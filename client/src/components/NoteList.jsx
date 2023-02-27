@@ -1,13 +1,14 @@
 import React, {useState} from 'react'
 import { Grid, List, Card, CardContent, Typography, IconButton, Tooltip,  } from '@mui/material'
 import { Box } from '@mui/system'
-import { Link, Outlet, useParams, useLoaderData, useSubmit } from 'react-router-dom'
+import { Link, Outlet, useParams, useLoaderData, useSubmit, useNavigate } from 'react-router-dom'
 import { NoteAddOutlined } from '@mui/icons-material'
 const NoteList = () => {
   const { noteId, folderId } = useParams()
   const { folder } = useLoaderData()
   const submit = useSubmit()
   const [activeNoteId, setActiveNoteId] = useState(noteId)
+  const navigate = useNavigate()
 
   const handleAddNewNote = async () => {
     submit({
@@ -18,6 +19,18 @@ const NoteList = () => {
       action: `/folder/${folderId}`
     })
   }
+
+  React.useEffect(() => {
+    if(noteId) {
+      setActiveNoteId(noteId)
+      return;
+    }
+
+    if(folder?.notes?.[0]){
+      navigate(`note/${folder.notes[0].id}`)
+    }
+  }, [noteId, folder.notes])
+  
   return (
     <Grid container height="100%">
       <Grid  item xs={4}>

@@ -9,7 +9,7 @@ import { graphqlRequest } from '../utils/request'
 const Login = () => {
   const auth = getAuth();
   // const navigate = useNavigate()
-  // const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   const handleLoginWithGG = async () => {
     const provider = new GoogleAuthProvider();

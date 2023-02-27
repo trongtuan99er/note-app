@@ -18,7 +18,7 @@ const AuthProvider = ({children}) => {
         if(user.accessToken !== localStorage.getItem('accessToken')){
           localStorage.setItem('accessToken', user.accessToken);
         }
-        // localStorage.setItem("accessToken", user.accessToken);
+        localStorage.setItem("accessToken", user.accessToken);
         setIsLoading(false)
         return;
       }

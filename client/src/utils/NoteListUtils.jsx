@@ -22,7 +22,7 @@ export const NoteListLoader = async ({params}) => {
 
 export const NoteDetailLoader = async ({params}) => {
   const noteId = params.noteId
-  const query = `query Folder($noteId: String!) {
+  const query = `query Note($noteId: String!) {
     note(noteId: $noteId) {
       id
       content

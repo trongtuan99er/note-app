@@ -39,7 +39,8 @@ const authorizationJWT = async (req, res, next) => {
         return res.status(403).json({message: "forbidden", error: err})
       })
   }else{
-    return res.status(401).json({message: "unauthoried"})
+    next();
+    // return res.status(401).json({message: "unauthoried"})
   }
 }
 app.use(cors(),authorizationJWT, bodyParser.json(), expressMiddleware(server, {
