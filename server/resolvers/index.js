@@ -1,5 +1,5 @@
 import fakeData from '../fakeData/index.js'
-import { AuthorModel, FolderModel } from '../models/index.js';
+import { AuthorModel, FolderModel, NoteModel } from '../models/index.js';
 export const resolvers = {
   Query: {
     folders: async (parent, args, context) => { 
@@ -35,6 +35,11 @@ export const resolvers = {
     }
   },
   Mutation: {
+    addNote: async (parent, agrs) => {
+      const newNote = new NoteModel(agrs)
+      await newNote.save()
+      return newNote
+    },
     addFolder: async (parent, agrs, context) => {
       const newFolder = new FolderModel({...agrs, authorId: context.uid})
       await newFolder.save()
