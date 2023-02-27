@@ -3,6 +3,8 @@ import { Grid, List, Card, CardContent, Typography, IconButton, Tooltip,  } from
 import { Box } from '@mui/system'
 import { Link, Outlet, useParams, useLoaderData, useSubmit, useNavigate } from 'react-router-dom'
 import { NoteAddOutlined } from '@mui/icons-material'
+import moment from 'moment'
+
 const NoteList = () => {
   const { noteId, folderId } = useParams()
   const { folder } = useLoaderData()
@@ -58,7 +60,7 @@ const NoteList = () => {
           }
         >
         {
-          folder.notes.map(({id, content})=> {
+          folder.notes.map(({id, content, updatedAt})=> {
             return <Link
               key={id}
               to={`note/${id}`}
@@ -74,6 +76,9 @@ const NoteList = () => {
                     style={{fontSize: 14, fontWeight: 'bold'}}
                     dangerouslySetInnerHTML={{__html: `${content.substring(0,30) || 'Nội dung trống'}`}}
                   />
+                  <Typography variant="caption" color="initial" sx={{fontSize: '10px', pt: '4px'}}>
+                    Cập nhập: {moment(updatedAt).format('DD/MM/YYYY, h:mm')}
+                  </Typography>
                 </CardContent>
               </Card>
             </Link>

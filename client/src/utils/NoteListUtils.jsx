@@ -8,6 +8,7 @@ export const NoteListLoader = async ({params}) => {
       notes {
         id
         content
+        updatedAt
       }
     }
   }`
