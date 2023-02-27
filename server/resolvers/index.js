@@ -34,6 +34,17 @@ export const resolvers = {
       const newFolder = new FolderModel({...agrs, authorId: "123"})
       await newFolder.save()
       return newFolder 
+    },
+    register: async (parent, agrs) => {
+      const newUser = new AuthorModel(agrs)
+      const foundUser = await AuthorModel.findOne({
+        uid: agrs.uid
+      })
+      if(!foundUser){
+        newUser.save()
+        return newUser
+      }
+      return newUser
     }
   }
 };

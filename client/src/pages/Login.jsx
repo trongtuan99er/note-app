@@ -3,22 +3,34 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { GoogleAuthProvider, signInWithPopup , getAuth} from 'firebase/auth'
 import { AuthContext } from '../context/AuthProvider'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
+import { graphqlRequest } from '../utils/request'
 
 const Login = () => {
   const auth = getAuth();
-  const navigate = useNavigate()
-  const { user } = useContext(AuthContext)
+  // const navigate = useNavigate()
+  // const { user } = useContext(AuthContext)
 
   const handleLoginWithGG = async () => {
     const provider = new GoogleAuthProvider();
 
-    const res = await signInWithPopup(auth, provider);
-    console.log({res});
+    const {
+      user: { uid, displayName }
+    } = await signInWithPopup(auth, provider);
+    const data = await graphqlRequest({
+      query: `mutation register($uid: String!, $name: String!) {
+        register(uid: $uid, name: $name){
+          uid
+          name
+        }
+      }`, variables: {
+        uid,
+        name: displayName
+      }
+    })
   }
-  if (user?.uid) {
-    navigate('/');
-    return; 
+  if (localStorage.getItem('accessToken')) {
+    return <Navigate to={'/'} />
   }
   return (
   <>
