@@ -56,3 +56,23 @@ export const addNewNote = async ({params, request}) => {
   })
   return addNote
 }
+
+export const updateNote = async ({params, request}) => {
+  const note = await request.formData()
+  const formDataObj = {}
+  note.forEach((value, key) => (formDataObj[key] = value))
+  console.log({formDataObj});
+
+  const query = `mutation Mutation($id: String!, $content: String!){
+      updateNote(id: $id, content: $content){
+        id
+        content
+      }
+  }`
+
+  const {updateNote} = await graphqlRequest({
+    query,
+    variables: formDataObj
+  })
+  return updateNote
+}
