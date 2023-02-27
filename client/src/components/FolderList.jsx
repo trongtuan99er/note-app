@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { List, Typography, Card, CardContent} from '@mui/material'
 import { Link, useParams } from 'react-router-dom'
 import { Box } from '@mui/system'
+import NewFolder from './NewFolder'
 
 const FolderList = ({folders}) => {
   const { folderId } = useParams()
@@ -17,8 +18,11 @@ const FolderList = ({folders}) => {
         textAlign: 'left'
       }}
       subheader={
-        <Box>
-          <Typography variant="h6" color="initial" sx={{fontWeight: 'bold', color: 'white', mb: '4px'}}>DS thư mục</Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Typography sx={{ fontWeight: 'bold', color: 'white' }}>
+            Folders
+          </Typography>
+          <NewFolder />
         </Box>
       }
     >

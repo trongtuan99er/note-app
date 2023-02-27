@@ -1,10 +1,12 @@
 import fakeData from '../fakeData/index.js'
-import { FolderModel } from '../models/index.js';
+import { AuthorModel, FolderModel } from '../models/index.js';
 export const resolvers = {
   Query: {
     folders: async (parent, args, context) => { 
       const folders = await FolderModel.find({
         authorId: context.uid
+      }).sort({
+        updatedAt: 'desc'
       });
       return folders
     },
@@ -21,17 +23,20 @@ export const resolvers = {
     }
   },
   Folder: {
-    author: (parent, agrs) => {
+    author: async (parent, agrs) => {
       const authorId = parent.authorId
-      return fakeData.auhors.find(author => author.id === authorId)
+      const author = await AuthorModel.findOne({
+        uid: authorId
+      })
+      return author
     },
     notes: (parent, agrs) => {
       return fakeData.notes.filter(note => note.folderId === parent.id)
     }
   },
   Mutation: {
-    addFolder: async (parent, agrs) => {
-      const newFolder = new FolderModel({...agrs, authorId: "123"})
+    addFolder: async (parent, agrs, context) => {
+      const newFolder = new FolderModel({...agrs, authorId: context.uid})
       await newFolder.save()
       return newFolder 
     },
