@@ -59,6 +59,10 @@ export const resolvers = {
       const note = await NoteModel.findByIdAndUpdate(noteId, agrs)
       return note
     },
+    deleteNote: async (parent, agrs) => {
+      const noteId = agrs.id
+      await NoteModel.findByIdAndDelete(noteId)
+    },
     addFolder: async (parent, agrs, context) => {
       const newFolder = new FolderModel({...agrs, authorId: context.uid})
       await newFolder.save()
