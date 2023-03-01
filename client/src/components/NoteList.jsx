@@ -4,6 +4,7 @@ import { Box } from '@mui/system'
 import { Link, Outlet, useParams, useLoaderData, useSubmit, useNavigate } from 'react-router-dom'
 import { NoteAddOutlined } from '@mui/icons-material'
 import moment from 'moment'
+import DeleteItem from './DeleteItem'
 
 const NoteList = () => {
   const { noteId, folderId } = useParams()
@@ -61,27 +62,31 @@ const NoteList = () => {
         >
         {
           folder.notes.map(({id, content, updatedAt})=> {
-            return <Link
-              key={id}
-              to={`note/${id}`}
-              style={{TextDecoder: 'none'}}
-              onClick={() => setActiveNoteId(id)}
-            >
-              <Card sx={{mb: '5px', backgroundColor: id === activeNoteId ?  'rgb(255 211 140)' : null}} >
-                <CardContent sx={{
-                  p: '10px',
-                  '&:last-child': {pb: '10px'}
-                }}>
-                  <div 
-                    style={{fontSize: 14, fontWeight: 'bold'}}
-                    dangerouslySetInnerHTML={{__html: `${content.substring(0,30) || 'Nội dung trống'}`}}
-                  />
-                  <Typography variant="caption" color="initial" sx={{fontSize: '10px', pt: '4px'}}>
-                    Cập nhập: {moment(updatedAt).format('DD/MM/YYYY, h:mm')}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Link>
+            return (
+              <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}  key={id}>
+                <Link
+                to={`note/${id}`}
+                style={{TextDecoder: 'none', flex: 1}}
+                onClick={() => setActiveNoteId(id)}
+              >
+                <Card sx={{mb: '5px', backgroundColor: id === activeNoteId ?  'rgb(255 211 140)' : null}} >
+                  <CardContent sx={{
+                    p: '10px',
+                    '&:last-child': {pb: '10px'}
+                  }}>
+                    <div 
+                      style={{fontSize: 14, fontWeight: 'bold'}}
+                      dangerouslySetInnerHTML={{__html: `${content.substring(0,30) || 'Nội dung trống'}`}}
+                    />
+                    <Typography variant="caption" color="initial" sx={{fontSize: '10px', pt: '4px'}}>
+                      Cập nhập: {moment(updatedAt).format('DD/MM/YYYY, h:mm')}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Link>
+              <DeleteItem id={id}/>
+              </div>
+            )
           })
         }
         </List>

@@ -51,7 +51,8 @@ app.use(cors(),authorizationJWT, bodyParser.json(), expressMiddleware(server, {
 mongoose.set('strictQuery', false)
 mongoose.connect(URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  socketTimeoutMS: 1000
 }).then(async () => {
   console.log("conected to DB");
   await new Promise((resolve) => httpServer.listen({port: PORT}, resolve) );
